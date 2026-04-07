@@ -39,11 +39,13 @@ body {
   height: 100%;
   pointer-events: none;
   z-index: 0;
+  opacity: 0.92;
 }
 
 .cs-wrap {
   position: relative;
   z-index: 10;
+  isolation: isolate;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -52,6 +54,22 @@ body {
   justify-content: center;
   padding: 2rem;
   text-align: center;
+}
+
+.cs-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at center 34%,
+      rgba(5, 13, 26, 0.72) 0%,
+      rgba(5, 13, 26, 0.58) 28%,
+      rgba(5, 13, 26, 0.18) 58%,
+      rgba(5, 13, 26, 0) 78%
+    );
 }
 
 .cs-logo {
@@ -367,9 +385,85 @@ body {
   }
 }
 
+@media (max-width: 720px) {
+  html,
+  body {
+    min-height: 100%;
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  #cs-canvas {
+    opacity: 0.42;
+  }
+
+  .cs-wrap {
+    min-height: 100svh;
+    height: auto;
+    justify-content: flex-start;
+    padding:
+      calc(6.25rem + env(safe-area-inset-top))
+      1.35rem
+      calc(5.75rem + env(safe-area-inset-bottom));
+  }
+
+  .cs-wrap::before {
+    background:
+      radial-gradient(
+        ellipse at center 34%,
+        rgba(5, 13, 26, 0.94) 0%,
+        rgba(5, 13, 26, 0.84) 30%,
+        rgba(5, 13, 26, 0.42) 58%,
+        rgba(5, 13, 26, 0.08) 74%,
+        rgba(5, 13, 26, 0) 86%
+      );
+  }
+
+  .cs-logo {
+    margin-bottom: 2.4rem;
+  }
+
+  .cs-title {
+    font-size: clamp(3.7rem, 18vw, 5.2rem);
+  }
+
+  .cs-subtitle {
+    margin-bottom: 1.2rem;
+  }
+
+  .cs-desc {
+    max-width: 26ch;
+    margin-bottom: 2.35rem;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .cs-countdown {
+    width: min(100%, 360px);
+    gap: 0.7rem;
+    margin-bottom: 2.6rem;
+  }
+
+  .cd-block {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .cs-progress-wrap,
+  .cs-notify {
+    width: min(100%, 460px);
+  }
+
+  .cs-footer {
+    position: static;
+    margin-top: 1rem;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
 @media (max-width: 480px) {
   .cs-countdown {
-    gap: 1rem;
+    gap: 0.45rem;
   }
 
   .cs-notify {
@@ -377,7 +471,26 @@ body {
     align-items: center;
   }
 
+  .cs-eyebrow::before,
+  .cs-eyebrow::after {
+    max-width: 34px;
+  }
+
+  .cd-sep {
+    font-size: 1.5rem;
+    opacity: 0.34;
+  }
+
   .cs-input {
-    width: 78vw;
+    width: 100%;
+  }
+
+  .cs-btn {
+    width: min(100%, 220px);
+  }
+
+  .cs-notify-note {
+    margin-bottom: 1.8rem;
+    color: rgba(255, 255, 255, 0.38);
   }
 }

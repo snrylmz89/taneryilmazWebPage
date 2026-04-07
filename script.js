@@ -24,9 +24,8 @@ function setupCanvas() {
   let width = 0;
   let height = 0;
   const mouse = { x: 0, y: 0 };
-  const nodeCount = 55;
-  const connectionDistance = 160;
   const nodes = [];
+  let canvasConfig = getCanvasConfig(0);
   let frame = 0;
   let lastFire = 0;
 
@@ -41,21 +40,44 @@ function setupCanvas() {
     canvas.style.height = `${height}px`;
 
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    canvasConfig = getCanvasConfig(width);
     buildNodes();
+  }
+
+  function getCanvasConfig(viewportWidth) {
+    const isMobile = viewportWidth <= 720;
+
+    return {
+      nodeCount: isMobile ? 28 : 55,
+      connectionDistance: isMobile ? 104 : 160,
+      centerYRatio: isMobile ? 0.62 : 0.48,
+      scaleRatio: isMobile ? 0.25 : 0.38,
+      ellipseRatio: isMobile ? 0.56 : 0.72,
+      glowRadiusRatio: isMobile ? 0.26 : 0.4,
+      glowStrength: isMobile ? 0.06 : 0.12,
+      glowMidStrength: isMobile ? 0.028 : 0.05,
+      driftStrength: isMobile ? 0.004 : 0.006,
+      jitterStrength: isMobile ? 0.022 : 0.04,
+      fireInterval: isMobile ? 34 : 22,
+      maxConnections: isMobile ? 2 : 4,
+      connectionOpacity: isMobile ? 0.42 : 1,
+      pulseOpacity: isMobile ? 0.55 : 0.9,
+      nodeOpacity: isMobile ? 0.72 : 1
+    };
   }
 
   function buildNodes() {
     nodes.length = 0;
 
     const centerX = width * 0.5;
-    const centerY = height * 0.48;
-    const scale = Math.min(width, height) * 0.38;
+    const centerY = height * canvasConfig.centerYRatio;
+    const scale = Math.min(width, height) * canvasConfig.scaleRatio;
 
-    for (let index = 0; index < nodeCount; index += 1) {
+    for (let index = 0; index < canvasConfig.nodeCount; index += 1) {
       const angle = Math.random() * Math.PI * 2;
       const radius = Math.sqrt(Math.random()) * scale;
       const homeX = centerX + Math.cos(angle) * radius;
-      const homeY = centerY + Math.sin(angle) * radius * 0.72;
+      const homeY = centerY + Math.sin(angle) * radius * canvasConfig.ellipseRatio;
 
       nodes.push({
         x: homeX,
@@ -100,9 +122,9 @@ function setupCanvas() {
 
         return { node, distance: Math.sqrt(dx * dx + dy * dy) };
       })
-      .filter(({ distance }) => distance < connectionDistance)
+      .filter(({ distance }) => distance < canvasConfig.connectionDistance)
       .sort((left, right) => left.distance - right.distance)
-      .slice(0, 4);
+      .slice(0, canvasConfig.maxConnections);
 
     for (const { node } of candidates) {
       source.pulses.push({
@@ -114,7 +136,7 @@ function setupCanvas() {
         cpy: (source.y + node.y) / 2 + (Math.random() - 0.5) * 50
       });
 
-      if (source.pulses.length >= 4) {
+      if (source.pulses.length >= canvasConfig.maxConnections) {
         break;
       }
     }
@@ -130,10 +152,17 @@ function setupCanvas() {
     const glow = Math.min(frame / 90, 1);
     const glowX = width * 0.5 + (mouse.x - width * 0.5) * 0.03;
     const glowY = height * 0.48 + (mouse.y - height * 0.5) * 0.03;
-    const gradient = ctx.createRadialGradient(glowX, glowY, 0, glowX, glowY, width * 0.4);
+    const gradient = ctx.createRadialGradient(
+      glowX,
+      glowY,
+      0,
+      glowX,
+      glowY,
+      width * canvasConfig.glowRadiusRatio
+    );
 
-    gradient.addColorStop(0, `rgba(42,127,143,${0.12 * glow})`);
-    gradient.addColorStop(0.5, `rgba(15,34,64,${0.05 * glow})`);
+    gradient.addColorStop(0, `rgba(42,127,143,${canvasConfig.glowStrength * glow})`);
+    gradient.addColorStop(0.5, `rgba(15,34,64,${canvasConfig.glowMidStrength * glow})`);
     gradient.addColorStop(1, "rgba(5,13,26,0)");
 
     ctx.fillStyle = gradient;
@@ -149,12 +178,12 @@ function setupCanvas() {
         return;
       }
 
-      node.vx += (node.hx + mouseX - node.x) * 0.006;
-      node.vy += (node.hy + mouseY - node.y) * 0.006;
+      node.vx += (node.hx + mouseX - node.x) * canvasConfig.driftStrength;
+      node.vy += (node.hy + mouseY - node.y) * canvasConfig.driftStrength;
       node.vx *= 0.91;
       node.vy *= 0.91;
-      node.vx += (Math.random() - 0.5) * 0.04;
-      node.vy += (Math.random() - 0.5) * 0.04;
+      node.vx += (Math.random() - 0.5) * canvasConfig.jitterStrength;
+      node.vy += (Math.random() - 0.5) * canvasConfig.jitterStrength;
       node.x += node.vx;
       node.y += node.vy;
       node.phase += 0.018;
@@ -162,7 +191,7 @@ function setupCanvas() {
       node.refractory = Math.max(0, node.refractory - 1);
     });
 
-    if (frame - lastFire >= 22) {
+    if (frame - lastFire >= canvasConfig.fireInterval) {
       const available = nodes.filter((node) => node.refractory === 0 && node.entry > 0.5);
 
       if (available.length > 0) {
@@ -193,17 +222,18 @@ function setupCanvas() {
         const dy = target.y - source.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
 
-        if (distance > connectionDistance) {
+        if (distance > canvasConfig.connectionDistance) {
           continue;
         }
 
-        const proximity = 1 - distance / connectionDistance;
+        const proximity = 1 - distance / canvasConfig.connectionDistance;
         const activity = (source.act + target.act) * 0.5;
         const alpha =
           proximity *
           connectionVisibility *
           (0.09 + activity * 0.45) *
-          Math.min(source.entry, target.entry);
+          Math.min(source.entry, target.entry) *
+          canvasConfig.connectionOpacity;
 
         if (alpha < 0.004) {
           continue;
@@ -249,8 +279,8 @@ function setupCanvas() {
 
                 return { node, distance: Math.sqrt(dx * dx + dy * dy) };
               })
-              .filter(({ distance }) => distance < connectionDistance)
-              .sort((left, right) => left.distance - right.distance);
+                .filter(({ distance }) => distance < canvasConfig.connectionDistance)
+                .sort((left, right) => left.distance - right.distance);
 
             if (nextCandidates.length > 0) {
               const nextNode = nextCandidates[0].node;
@@ -278,7 +308,10 @@ function setupCanvas() {
           pulse.to.y,
           pulse.t
         );
-        const visibility = connectionVisibility * Math.pow(Math.sin(pulse.t * Math.PI), 0.6) * 0.9;
+        const visibility =
+          connectionVisibility *
+          Math.pow(Math.sin(pulse.t * Math.PI), 0.6) *
+          canvasConfig.pulseOpacity;
 
         if (visibility < 0.01) {
           return true;
@@ -335,7 +368,7 @@ function setupCanvas() {
         ctx.fill();
       }
 
-      const baseAlpha = 0.6 + pulse * 0.25 + glowStrength * 0.15;
+      const baseAlpha = (0.6 + pulse * 0.25 + glowStrength * 0.15) * canvasConfig.nodeOpacity;
 
       ctx.beginPath();
       ctx.arc(node.x, node.y, radius, 0, Math.PI * 2);
