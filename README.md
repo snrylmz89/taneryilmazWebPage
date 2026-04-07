@@ -1,13 +1,15 @@
 # taneryilmazWebPage
 
-Bu repo, `main`, `dev` ve `test` branchleriyle yonetilecek yeni web sitesi calismasi icin hazirlandi.
+Bu repo `main`, `dev` ve `test` branchleriyle yonetiliyor.
 
 ## Main branch
 
-`main` branch su anda gecici bir "yapim asamasinda" sayfasi icerir.
+`main` branch su anda Dr. Taner Yilmaz icin hazirlanan "coming soon" sayfasini barindirir.
 
-## Branch stratejisi
+## Dosya yapisi
 
-- `main`: canliya yakin, korumali ana dal
-- `dev`: aktif gelistirme alani
-- `test`: kontrol ve ara test akisi
+- `index.html`: sayfa iskeleti
+- `styles.css`: tum gorsel stiller ve responsive duzen
+- `script.js`: canvas animasyonu, countdown, progress ve form davranisi
+
+`coming-soon.html` dosyasi kaynak referans olarak klasorde tutuluyor; canli kullanilan giris dosyasi `index.html` tarafidir.
