@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Taner Yılmaz | Psikiyatrist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+
+<!-- Progress bar -->
+<div id="prog-bar"></div>
+
+<!-- Nav -->
+<nav>
+  <a class="nav-logo" href="#">Dr. Taner <span>Yılmaz</span></a>
+  <ul class="nav-links">
+    <li><a href="#about-sec">Hakkımda</a></li>
+    <li><a href="#services-sec">Hizmetler</a></li>
+    <li><a href="#appt-sec" class="nav-cta">Randevu Al</a></li>
+  </ul>
+</nav>
+
+<!-- Canvas — always behind everything -->
+<canvas id="brain-canvas"></canvas>
+
+<!-- ═══════════════ SCROLL STAGE ═══════════════ -->
+<div class="scroll-stage">
+  <div class="sticky-vp">
+
+    <!-- PANEL 0 — visible immediately at top -->
+    <div class="panel" id="p0">
+      <div class="p-tag">Psikiyatrist, Psikoterapist,</div>
+      <h1 class="p-title">
+        Zihninizin Gücünü<br /><em>Keşfedin</em>
+      </h1>
+      <p class="p-sub">
+        Sinir ağları gibi karmaşık zihinlerimiz, doğru destekle
+        derin bir uyum ve sağlık bulabilir.
+      </p>
+      <div class="btn-row">
+        <a class="btn-primary" href="#appt-sec">Randevu Al &rarr;</a>
+        <a class="btn-outline" href="#services-sec">Hizmetler</a>
+      </div>
+    </div>
+
+    <!-- PANEL 1 — neural connections form -->
+    <div class="panel" id="p1">
+      <div class="p-tag">Beyin & Ruh Sağlığı</div>
+      <h2 class="p-title" style="font-size:clamp(2rem,4vw,3.2rem)">
+        Her Düşünce<br />Bir <em>Bağlantıdır</em>
+      </h2>
+      <p class="p-sub">
+        Beyniniz her saniye milyarlarca sinyal iletir.<br />
+        Ruh sağlığı bu sinyallerin uyumunda gizlidir.
+      </p>
+    </div>
+
+    <!-- PANEL 2 — full activation / stats -->
+    <div class="panel" id="p2">
+      <div class="p-tag">Dr. Taner Yılmaz</div>
+      <h2 class="p-title" style="font-size:clamp(2rem,4vw,3.2rem)">
+        <em>15+ Yıl</em> Klinik<br />Deneyim
+      </h2>
+      <div class="stats-row">
+        <div class="stat-item"><div class="stat-val">2000+</div><div class="stat-lbl">Hasta</div></div>
+        <div class="stat-item"><div class="stat-val">BDT</div><div class="stat-lbl">& EMDR</div></div>
+        <div class="stat-item"><div class="stat-val">%98</div><div class="stat-lbl">Memnuniyet</div></div>
+      </div>
+    </div>
+
+    <!-- PANEL 3 — services preview -->
+    <div class="panel" id="p3">
+      <div class="p-tag">Uzmanlık Alanları</div>
+      <h2 class="p-title" style="font-size:clamp(1.8rem,3.5vw,2.8rem)">
+        Size <em>Özel</em> Tedavi Planı
+      </h2>
+      <div class="mini-grid">
+        <div class="mini-card"><div class="mc-i">🧠</div><h4>Kaygı & Panik</h4><p>BDT ile kanıta dayalı</p></div>
+        <div class="mini-card"><div class="mc-i">💆</div><h4>Depresyon</h4><p>Kişiselleştirilmiş plan</p></div>
+        <div class="mini-card"><div class="mc-i">🛡️</div><h4>Travma & EMDR</h4><p>Geçmişi iyileştirme</p></div>
+        <div class="mini-card"><div class="mc-i">💑</div><h4>Çift Terapisi</h4><p>İlişki desteği</p></div>
+        <div class="mini-card"><div class="mc-i">😴</div><h4>Uyku Sorunları</h4><p>BDT-I protokolü</p></div>
+        <div class="mini-card"><div class="mc-i">💻</div><h4>Online Seans</h4><p>Güvenli video</p></div>
+      </div>
+    </div>
+
+    <!-- Scroll hint -->
+    <div class="scroll-hint" id="scroll-hint">
+      <span>Kaydır</span>
+      <div class="sh-line"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE CONTENT ═══════════════ -->
+<div class="page-content">
+
+  <!-- Services Neural Sticky Stage -->
+  <section id="svc-stage">
+    <div class="svc-sticky">
+      <canvas id="svc-canvas"></canvas>
+
+      <!-- Header -->
+      <div class="svc-header">
+        <div class="s-label">Hizmetler</div>
+        <h2 class="s-heading">Uzmanlık <em>Alanlarım</em></h2>
+      </div>
+
+      <!-- Card nodes — left/top set by JS based on viewport -->
+      <div class="svc-node" id="svc-node-0">
+        <div class="svc-card-inner">
+          <div class="svc-icon-w">🧠</div>
+          <h3>Kaygı & Panik Bozukluğu</h3>
+          <p class="svc-desc">Panik atakları, sosyal kaygı ve fobiler için ilaç ve BDT kombinasyonu.</p>
+          <span class="svc-tag">01 / 06</span>
+        </div>
+      </div>
+      <div class="svc-node" id="svc-node-1">
+        <div class="svc-card-inner">
+          <div class="svc-icon-w">💆</div>
+          <h3>Depresyon Tedavisi</h3>
+          <p class="svc-desc">Majör depresif bozukluk ve distimide kişiselleştirilmiş bilimsel tedavi.</p>
+          <span class="svc-tag">02 / 06</span>
+        </div>
+      </div>
+      <div class="svc-node" id="svc-node-2">
+        <div class="svc-card-inner">
+          <div class="svc-icon-w">🛡️</div>
+          <h3>Travma & EMDR</h3>
+          <p class="svc-desc">PTSD ve kompleks travmaların EMDR ile işlenmesi, yeniden bütünleşme.</p>
+          <span class="svc-tag">03 / 06</span>
+        </div>
+      </div>
+      <div class="svc-node" id="svc-node-3">
+        <div class="svc-card-inner">
+          <div class="svc-icon-w">💑</div>
+          <h3>İlişki & Çift Terapisi</h3>
+          <p class="svc-desc">İletişim güçlükleri, bağlanma sorunları ve çatışma çözümü.</p>
+          <span class="svc-tag">04 / 06</span>
+        </div>
+      </div>
+      <div class="svc-node" id="svc-node-4">
+        <div class="svc-card-inner">
+          <div class="svc-icon-w">😴</div>
+          <h3>Uyku Bozuklukları</h3>
+          <p class="svc-desc">İnsomnia için BDT-I protokolü, ilaç desteği ve uyku hijyeni.</p>
+          <span class="svc-tag">05 / 06</span>
+        </div>
+      </div>
+      <div class="svc-node" id="svc-node-5">
+        <div class="svc-card-inner">
+          <div class="svc-icon-w">💻</div>
+          <h3>Online Psikiyatri</h3>
+          <p class="svc-desc">Güvenli video platform üzerinden yüz yüze kalitesinde seans.</p>
+          <span class="svc-tag">06 / 06</span>
+        </div>
+      </div>
+
+      <!-- Progress dots -->
+      <div class="svc-dots" id="svc-dots">
+        <div class="svc-dot svc-dot-on"></div>
+        <div class="svc-dot"></div>
+        <div class="svc-dot"></div>
+        <div class="svc-dot"></div>
+        <div class="svc-dot"></div>
+        <div class="svc-dot"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about-strip" id="about-sec">
+    <div class="about-inner">
+      <div>
+        <div class="s-label">Hakkımda</div>
+        <h2 class="s-heading">İnsanı Bütüncül Bir <em>Yaklaşımla</em> Anlamak</h2>
+        <p>İstanbul Üniversitesi Tıp Fakültesi'ni ve psikiyatri ihtisasımı aynı üniversitede tamamladım. 15 yılı aşkın klinik deneyimimle bireysel, çift ve aile danışmanlığı alanlarında hizmet veriyorum.</p>
+        <p>BDT, EMDR ve psikanalitik yaklaşımları bütünleştirerek her hastayı biricik bir birey olarak, kişiye özel kanıta dayalı yöntemlerle değerlendiriyorum.</p>
+        <div class="btn-row" style="justify-content:flex-start;margin-top:1.75rem;">
+          <a class="btn-primary" href="#appt-sec">Randevu Al &rarr;</a>
+        </div>
+      </div>
+      <div>
+        <ul class="edu-list">
+          <li class="edu-item">
+            <div class="edu-dot"></div>
+            <div class="edu-text"><h4>İstanbul Üniversitesi — Tıp Fakültesi</h4><p>Tıp Doktorluğu (MD)</p></div>
+            <div class="edu-yr">2008–2015</div>
+          </li>
+          <li class="edu-item">
+            <div class="edu-dot"></div>
+            <div class="edu-text"><h4>Psikiyatri Uzmanlık Eğitimi</h4><p>İstanbul Üniversitesi, Psikiyatri ABD</p></div>
+            <div class="edu-yr">2015–2020</div>
+          </li>
+          <li class="edu-item">
+            <div class="edu-dot"></div>
+            <div class="edu-text"><h4>EMDR Uygulayıcı Sertifikası</h4><p>EMDR Europe — Onaylı Eğitim</p></div>
+            <div class="edu-yr">2021</div>
+          </li>
+          <li class="edu-item">
+            <div class="edu-dot"></div>
+            <div class="edu-text"><h4>Bilişsel Davranışçı Terapi</h4><p>Beck Enstitüsü Sertifika Programı</p></div>
+            <div class="edu-yr">2022</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Appointment -->
+
+  <footer>
+    <div class="f-logo">Dr. Taner <span>Yılmaz</span></div>
+    <p>© 2025 Dr. Taner Yılmaz · Psikiyatri Uzmanı · İstanbul</p>
+  </footer>
+</div>
+
+<!-- WhatsApp -->
+<a class="wa" href="https://wa.me/905XXXXXXXXX" target="_blank">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+
+<!-- ═══════════════ NEURAL ANIMATION ENGINE ═══════════════ -->
+<script src="./script.js"></script>
+</body>
+</html>

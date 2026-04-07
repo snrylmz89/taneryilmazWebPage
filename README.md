@@ -13,3 +13,7 @@ Bu repo `main`, `dev` ve `test` branchleriyle yonetiliyor.
 - `script.js`: canvas animasyonu, countdown, progress ve form davranisi
 
 `coming-soon.html` dosyasi kaynak referans olarak klasorde tutuluyor; canli kullanilan giris dosyasi `index.html` tarafidir.
+
+## Dev branch notu
+
+`dev` branch icinde deneysel sayfalar icin `experiments/` klasoru kullanilir.
