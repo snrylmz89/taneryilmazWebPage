@@ -48,21 +48,21 @@ function setupCanvas() {
     const isMobile = viewportWidth <= 720;
 
     return {
-      nodeCount: isMobile ? 28 : 55,
-      connectionDistance: isMobile ? 104 : 160,
-      centerYRatio: isMobile ? 0.62 : 0.48,
-      scaleRatio: isMobile ? 0.25 : 0.38,
-      ellipseRatio: isMobile ? 0.56 : 0.72,
-      glowRadiusRatio: isMobile ? 0.26 : 0.4,
-      glowStrength: isMobile ? 0.06 : 0.12,
-      glowMidStrength: isMobile ? 0.028 : 0.05,
-      driftStrength: isMobile ? 0.004 : 0.006,
-      jitterStrength: isMobile ? 0.022 : 0.04,
-      fireInterval: isMobile ? 34 : 22,
-      maxConnections: isMobile ? 2 : 4,
-      connectionOpacity: isMobile ? 0.42 : 1,
-      pulseOpacity: isMobile ? 0.55 : 0.9,
-      nodeOpacity: isMobile ? 0.72 : 1
+      nodeCount: isMobile ? 34 : 55,
+      connectionDistance: isMobile ? 116 : 160,
+      centerYRatio: isMobile ? 0.6 : 0.48,
+      scaleRatio: isMobile ? 0.28 : 0.38,
+      ellipseRatio: isMobile ? 0.6 : 0.72,
+      glowRadiusRatio: isMobile ? 0.3 : 0.4,
+      glowStrength: isMobile ? 0.075 : 0.12,
+      glowMidStrength: isMobile ? 0.032 : 0.05,
+      driftStrength: isMobile ? 0.0045 : 0.006,
+      jitterStrength: isMobile ? 0.024 : 0.04,
+      fireInterval: isMobile ? 30 : 22,
+      maxConnections: isMobile ? 3 : 4,
+      connectionOpacity: isMobile ? 0.58 : 1,
+      pulseOpacity: isMobile ? 0.68 : 0.9,
+      nodeOpacity: isMobile ? 0.82 : 1
     };
   }
 
