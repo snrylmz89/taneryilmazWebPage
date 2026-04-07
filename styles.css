@@ -59,11 +59,13 @@ body {
   align-items: center;
   gap: 0.7rem;
   margin-bottom: 3.5rem;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(244, 241, 233, 0.76);
   font-family: "Playfair Display", serif;
-  font-size: clamp(0.85rem, 1.4vw, 1rem);
-  letter-spacing: 0.22em;
+  font-size: clamp(0.9rem, 1.45vw, 1.05rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
 }
 
 .cs-logo-dot {
@@ -72,7 +74,9 @@ body {
   flex-shrink: 0;
   border-radius: 50%;
   background: var(--gold);
-  box-shadow: 0 0 10px var(--gold);
+  box-shadow:
+    0 0 10px var(--gold),
+    0 0 18px rgba(201, 168, 76, 0.35);
 }
 
 .cs-eyebrow {
@@ -102,15 +106,15 @@ body {
 
 .cs-title {
   margin-bottom: 0.6rem;
-  background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.75) 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: rgba(248, 246, 241, 0.98);
   font-family: "Playfair Display", serif;
   font-size: clamp(3.2rem, 9vw, 7.5rem);
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.01em;
+  text-shadow:
+    0 0 14px rgba(255, 255, 255, 0.06),
+    0 18px 34px rgba(0, 0, 0, 0.24);
 }
 
 .cs-subtitle {
@@ -214,11 +218,14 @@ body {
 .cs-input {
   width: min(260px, 80vw);
   padding: 0.75rem 1.45rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50px;
   outline: none;
-  background: rgba(255, 255, 255, 0.06);
-  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 10px 28px rgba(0, 0, 0, 0.16);
+  color: rgba(255, 255, 255, 0.94);
   font-family: "Inter", sans-serif;
   font-size: 0.87rem;
   transition:
@@ -228,12 +235,15 @@ body {
 }
 
 .cs-input::placeholder {
-  color: var(--dim);
+  color: rgba(255, 255, 255, 0.42);
 }
 
 .cs-input:focus {
-  border-color: rgba(77, 217, 236, 0.35);
-  background: rgba(77, 217, 236, 0.04);
+  border-color: rgba(77, 217, 236, 0.5);
+  background: rgba(77, 217, 236, 0.08);
+  box-shadow:
+    0 0 0 4px rgba(77, 217, 236, 0.09),
+    0 12px 30px rgba(0, 0, 0, 0.2);
 }
 
 .cs-input.is-invalid {
