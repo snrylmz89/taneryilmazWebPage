@@ -3,113 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dr. Taner Yılmaz | Psikiyatrist — Yakında</title>
-    <meta
-      name="description"
-      content="Dr. Taner Yılmaz'ın psikiyatri ve psikoterapi alanındaki yeni web sitesi çok yakında yayında."
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./styles.css" />
+    <title>Yönlendiriliyor | Brain Animation</title>
+    <meta http-equiv="refresh" content="0; url=/experiments/brain-animation/" />
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #050d1a;
+        color: #eef3f5;
+        font-family: Arial, sans-serif;
+      }
+
+      a {
+        color: #7ee8f5;
+      }
+    </style>
+    <script>
+      window.location.replace("/experiments/brain-animation/");
+    </script>
   </head>
-  <body data-progress="72" data-launch-date="2026-05-07T00:00:00+03:00">
-    <canvas id="cs-canvas" aria-hidden="true"></canvas>
-
-    <div class="cs-wrap">
-      <div class="cs-logo">
-        <div class="cs-logo-dot"></div>
-        Dr. Taner Yılmaz
-        <div class="cs-logo-dot"></div>
-      </div>
-
-      <div class="cs-eyebrow">Psikiyatri &amp; Psikoterapi</div>
-
-      <h1 class="cs-title">Yakında</h1>
-      <p class="cs-subtitle">Yeni web sitemiz hazırlanıyor</p>
-
-      <p class="cs-desc">
-        Zihinsel sağlığınıza adanmış yeni platformumuz çok yakında sizlerle.
-        Bildirim almak için e-posta adresinizi bırakabilirsiniz.
-      </p>
-
-      <div class="cs-countdown" aria-label="Yayın geri sayımı">
-        <div class="cd-block">
-          <span class="cd-val" id="cd-g">00</span>
-          <span class="cd-lbl">Gün</span>
-        </div>
-        <span class="cd-sep">:</span>
-        <div class="cd-block">
-          <span class="cd-val" id="cd-s">00</span>
-          <span class="cd-lbl">Saat</span>
-        </div>
-        <span class="cd-sep">:</span>
-        <div class="cd-block">
-          <span class="cd-val" id="cd-d">00</span>
-          <span class="cd-lbl">Dakika</span>
-        </div>
-        <span class="cd-sep">:</span>
-        <div class="cd-block">
-          <span class="cd-val" id="cd-sn">00</span>
-          <span class="cd-lbl">Saniye</span>
-        </div>
-      </div>
-
-      <div class="cs-progress-wrap" aria-label="Yapım aşaması ilerleme durumu">
-        <div class="cs-progress-top">
-          <span>Yapım aşamasında</span>
-          <span id="prog-pct">72%</span>
-        </div>
-        <div class="cs-progress-bg">
-          <div class="cs-progress-fill" id="prog-fill"></div>
-        </div>
-      </div>
-
-      <form class="cs-notify" id="notify-form" novalidate>
-        <label class="sr-only" for="notify-email">E-posta adresiniz</label>
-        <input
-          class="cs-input"
-          type="email"
-          id="notify-email"
-          placeholder="e-posta adresiniz"
-          autocomplete="email"
-        />
-        <button class="cs-btn" type="submit">Haberdar Et</button>
-      </form>
-
-      <p class="cs-notify-note" id="notify-note">
-        Açılışta duyuru almak için e-posta adresinizi bırakabilirsiniz.
-      </p>
-      <p class="cs-success" id="notify-success" role="status" aria-live="polite">
-        Kaydınız alındı — açılışta bilgilendireceğiz.
-      </p>
-
-      <div class="cs-contact">
-        <a href="mailto:info@taneryilmaz.tr">
-          <svg
-            width="13"
-            height="13"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            aria-hidden="true"
-          >
-            <path
-              d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
-            />
-            <polyline points="22,6 12,13 2,6" />
-          </svg>
-          info@taneryilmaz.tr
-        </a>
-      </div>
-    </div>
-
-    <div class="cs-footer">© 2026 Dr. Taner Yılmaz · Psikiyatri &amp; Psikoterapi</div>
-
-    <script src="./script.js"></script>
+  <body>
+    <p>
+      Brain animation sayfasına yönlendiriliyorsunuz.
+      <a href="/experiments/brain-animation/">Açmak için tıklayın</a>.
+    </p>
   </body>
 </html>
