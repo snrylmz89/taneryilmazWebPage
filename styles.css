@@ -411,18 +411,18 @@ body {
   .cs-wrap::before {
     background:
       radial-gradient(
-        ellipse 74% 42% at center 35%,
-        rgba(5, 13, 26, 0.86) 0%,
-        rgba(5, 13, 26, 0.7) 26%,
-        rgba(5, 13, 26, 0.34) 48%,
-        rgba(5, 13, 26, 0.08) 66%,
-        rgba(5, 13, 26, 0) 80%
+        ellipse 58% 30% at center 41%,
+        rgba(5, 13, 26, 0.88) 0%,
+        rgba(5, 13, 26, 0.76) 24%,
+        rgba(5, 13, 26, 0.34) 46%,
+        rgba(5, 13, 26, 0.08) 60%,
+        rgba(5, 13, 26, 0) 72%
       ),
       linear-gradient(
         180deg,
-        rgba(5, 13, 26, 0.16) 0%,
-        rgba(5, 13, 26, 0) 24%,
-        rgba(5, 13, 26, 0.08) 100%
+        rgba(5, 13, 26, 0.08) 0%,
+        rgba(5, 13, 26, 0) 22%,
+        rgba(5, 13, 26, 0.06) 100%
       );
   }
 
