@@ -270,6 +270,12 @@
       transition: transform .65s cubic-bezier(.4,0,.2,1),
                   opacity .65s cubic-bezier(.4,0,.2,1);
     }
+    .svc-node[data-active="true"] { z-index: 10; }
+    .svc-node[data-distance="1"] { z-index: 8; }
+    .svc-node[data-distance="2"],
+    .svc-node[data-distance="3"],
+    .svc-node[data-distance="4"],
+    .svc-node[data-distance="5"] { z-index: 6; }
     .svc-card-inner {
       background: rgba(13,30,56,.88);
       border: 1px solid rgba(77,217,236,.1);
@@ -315,8 +321,70 @@
       box-shadow: 0 0 8px var(--cyan);
     }
     @media (max-width: 700px) {
-      .svc-node { width: clamp(175px, 78vw, 260px); }
+      .svc-node { width: clamp(176px, 48vw, 228px); }
+      .svc-card-inner { padding: 1.1rem 1rem; }
+      .svc-node h3 { font-size: .84rem; line-height: 1.32; }
+      .svc-node .svc-desc { font-size: .74rem; line-height: 1.55; }
       .svc-dots { right: .85rem; }
+
+      .svc-node[data-distance="1"] { width: clamp(112px, 30vw, 142px); }
+      .svc-node[data-distance="1"] .svc-card-inner { padding: .9rem .8rem; }
+      .svc-node[data-distance="1"] .svc-desc { display: none; }
+      .svc-node[data-distance="1"] .svc-tag { display: none; }
+      .svc-node[data-distance="1"] h3 {
+        font-size: .72rem;
+        line-height: 1.25;
+        margin-bottom: 0;
+      }
+      .svc-node[data-distance="1"] .svc-icon-w {
+        width: 42px;
+        height: 42px;
+        margin-bottom: .7rem;
+        font-size: 1.1rem;
+      }
+
+      .svc-node[data-distance="2"],
+      .svc-node[data-distance="3"],
+      .svc-node[data-distance="4"],
+      .svc-node[data-distance="5"] {
+        width: 54px;
+      }
+
+      .svc-node[data-distance="2"] .svc-card-inner,
+      .svc-node[data-distance="3"] .svc-card-inner,
+      .svc-node[data-distance="4"] .svc-card-inner,
+      .svc-node[data-distance="5"] .svc-card-inner {
+        padding: .5rem;
+        border-radius: 14px;
+        background: rgba(13,30,56,.74);
+        box-shadow: 0 6px 24px rgba(0,0,0,.28);
+      }
+
+      .svc-node[data-distance="2"] h3,
+      .svc-node[data-distance="3"] h3,
+      .svc-node[data-distance="4"] h3,
+      .svc-node[data-distance="5"] h3,
+      .svc-node[data-distance="2"] .svc-desc,
+      .svc-node[data-distance="3"] .svc-desc,
+      .svc-node[data-distance="4"] .svc-desc,
+      .svc-node[data-distance="5"] .svc-desc,
+      .svc-node[data-distance="2"] .svc-tag,
+      .svc-node[data-distance="3"] .svc-tag,
+      .svc-node[data-distance="4"] .svc-tag,
+      .svc-node[data-distance="5"] .svc-tag {
+        display: none;
+      }
+
+      .svc-node[data-distance="2"] .svc-icon-w,
+      .svc-node[data-distance="3"] .svc-icon-w,
+      .svc-node[data-distance="4"] .svc-icon-w,
+      .svc-node[data-distance="5"] .svc-icon-w {
+        width: 36px;
+        height: 36px;
+        margin: 0;
+        border-radius: 10px;
+        font-size: 1rem;
+      }
     }
 
     /* ── About strip ── */

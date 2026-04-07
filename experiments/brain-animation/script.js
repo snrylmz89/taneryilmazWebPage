@@ -503,11 +503,25 @@ const SVC_POS = [
   [0.18, 0.40],   // 5 Online      – left
 ];
 
+const SVC_POS_MOBILE = [
+  [0.50, 0.30],
+  [0.79, 0.40],
+  [0.79, 0.62],
+  [0.50, 0.72],
+  [0.21, 0.62],
+  [0.21, 0.40],
+];
+
 // Extra ambient nodes (smaller dots, no card) for richer network feel
 const SVC_AUX = [
   [0.50, 0.22], [0.82, 0.35], [0.88, 0.70],
   [0.42, 0.82], [0.12, 0.60], [0.10, 0.24],
   [0.68, 0.14], [0.50, 0.52],
+];
+
+const SVC_AUX_MOBILE = [
+  [0.50, 0.16], [0.89, 0.28], [0.94, 0.52], [0.82, 0.79],
+  [0.50, 0.88], [0.18, 0.79], [0.06, 0.52], [0.12, 0.28],
 ];
 
 let svcCvs, svcCtx2, svcW, svcH;
@@ -536,14 +550,16 @@ function resizeSvc() {
   positionSvcNodes();
 }
 
+function getSvcPositions() {
+  return window.innerWidth < 700 ? SVC_POS_MOBILE : SVC_POS;
+}
+
+function getSvcAuxPositions() {
+  return window.innerWidth < 700 ? SVC_AUX_MOBILE : SVC_AUX;
+}
+
 function positionSvcNodes() {
-  // Responsive layout: on narrow screens stack towards centre
-  const isMobile = window.innerWidth < 700;
-  const mPos = [
-    [0.50, 0.38], [0.78, 0.38], [0.82, 0.62],
-    [0.56, 0.74], [0.22, 0.68], [0.18, 0.44],
-  ];
-  const pos = isMobile ? mPos : SVC_POS;
+  const pos = getSvcPositions();
   pos.forEach(([cx, cy], i) => {
     const el = document.getElementById(`svc-node-${i}`);
     if (!el) return;
@@ -559,10 +575,11 @@ function updateSvcScroll() {
   const rect       = stage.getBoundingClientRect();
   const stageH     = stage.offsetHeight - window.innerHeight;
   const local      = Math.max(0, Math.min(1, -rect.top / stageH));
+  const positions  = getSvcPositions();
 
-  const step    = 1 / SVC_POS.length;
+  const step    = 1 / positions.length;
   const rawIdx  = local / step;
-  const newIdx  = Math.min(SVC_POS.length - 1, Math.floor(rawIdx));
+  const newIdx  = Math.min(positions.length - 1, Math.floor(rawIdx));
 
   if (newIdx !== svcActive) {
     // Fire a traveling pulse from previous active to new active
@@ -574,19 +591,27 @@ function updateSvcScroll() {
   }
 
   // Update card DOM
-  SVC_POS.forEach((_, i) => {
+  positions.forEach((_, i) => {
     const el = document.getElementById(`svc-node-${i}`);
     if (!el) return;
     const dist = Math.abs(i - svcActive);
     let scale, opacity;
-    if      (dist === 0) { scale = 1.00; opacity = 1.00; }
-    else if (dist === 1) { scale = 0.80; opacity = 0.48; }
-    else if (dist === 2) { scale = 0.67; opacity = 0.24; }
-    else                 { scale = 0.58; opacity = 0.11; }
+    if (window.innerWidth < 700) {
+      if      (dist === 0) { scale = 1.00; opacity = 1.00; }
+      else if (dist === 1) { scale = 0.74; opacity = 0.44; }
+      else if (dist === 2) { scale = 0.38; opacity = 0.16; }
+      else                 { scale = 0.28; opacity = 0.08; }
+    } else {
+      if      (dist === 0) { scale = 1.00; opacity = 1.00; }
+      else if (dist === 1) { scale = 0.80; opacity = 0.48; }
+      else if (dist === 2) { scale = 0.67; opacity = 0.24; }
+      else                 { scale = 0.58; opacity = 0.11; }
+    }
     el.style.transform     = `translate(-50%,-50%) scale(${scale})`;
     el.style.opacity       = opacity;
     el.style.pointerEvents = dist === 0 ? 'auto' : 'none';
     el.dataset.active      = dist === 0 ? 'true' : 'false';
+    el.dataset.distance    = String(dist);
   });
 
   // Dots
@@ -597,8 +622,9 @@ function updateSvcScroll() {
 
 function svcNearby(idx, count) {
   // Returns indices of closest card-nodes by spatial distance
-  const [ax, ay] = SVC_POS[idx];
-  return SVC_POS
+  const positions = getSvcPositions();
+  const [ax, ay] = positions[idx];
+  return positions
     .map(([bx, by], j) => ({ j, d: Math.hypot(bx-ax, by-ay) }))
     .filter(o => o.j !== idx)
     .sort((a, b) => a.d - b.d)
@@ -607,8 +633,9 @@ function svcNearby(idx, count) {
 }
 
 function fireSvcPulse(from, to, isAux) {
-  const [ax, ay] = SVC_POS[from];
-  const [bx, by] = SVC_POS[to];
+  const positions = getSvcPositions();
+  const [ax, ay] = positions[from];
+  const [bx, by] = positions[to];
   svcPulses.push({
     from, to, t: 0,
     spd: isAux ? .014 + Math.random()*.008 : .018,
@@ -625,7 +652,9 @@ function drawSvcCanvas() {
   s.clearRect(0, 0, svcW, svcH);
 
   // ── Ambient glow under active card ──
-  const [acx, acy] = SVC_POS[svcActive];
+  const positions = getSvcPositions();
+  const auxPositions = getSvcAuxPositions();
+  const [acx, acy] = positions[svcActive];
   const ag = s.createRadialGradient(acx*svcW, acy*svcH, 0, acx*svcW, acy*svcH, svcW*.22);
   ag.addColorStop(0, 'rgba(42,127,143,.13)');
   ag.addColorStop(1, 'rgba(5,13,26,0)');
@@ -646,7 +675,7 @@ function drawSvcCanvas() {
   const CONN_THRESH = 0.48; // connect nodes within this fraction of viewport
 
   // Build combined node list (cards + aux)
-  const allNodes = [...SVC_POS, ...SVC_AUX];
+  const allNodes = [...positions, ...auxPositions];
 
   // ── Draw all connections ──
   for (let i = 0; i < allNodes.length - 1; i++) {
@@ -675,7 +704,7 @@ function drawSvcCanvas() {
   }
 
   // ── Node glows (card nodes only) ──
-  SVC_POS.forEach(([nx, ny], i) => {
+  positions.forEach(([nx, ny], i) => {
     const dist  = Math.abs(i - svcActive);
     const glow  = dist === 0 ? 1 : dist === 1 ? .4 : .15;
     const r     = dist === 0 ? svcW*.032 : svcW*.018;
@@ -696,7 +725,7 @@ function drawSvcCanvas() {
   });
 
   // Aux node dots (tiny)
-  SVC_AUX.forEach(([nx, ny]) => {
+  auxPositions.forEach(([nx, ny]) => {
     s.beginPath();
     s.arc(nx*svcW, ny*svcH, 1.4, 0, Math.PI*2);
     s.fillStyle = 'rgba(77,217,236,.22)';
@@ -706,8 +735,8 @@ function drawSvcCanvas() {
   // ── Traveling pulses ──
   svcPulses = svcPulses.filter(p => {
     p.t = Math.min(1, p.t + p.spd);
-    const [ax, ay] = SVC_POS[p.from];
-    const [bx, by] = SVC_POS[p.to];
+    const [ax, ay] = positions[p.from];
+    const [bx, by] = positions[p.to];
     const cpx = p.cpx * svcW, cpy = p.cpy * svcH;
     const vis  = Math.pow(Math.sin(p.t * Math.PI), .55) * (p.isAux ? .6 : 1);
     if (vis < .015) return p.t < 1;
